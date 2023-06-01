@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>충돌체크원리</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        #wrapper{
+            width: 100%;
+            height: 600px;
+            background: lemonchiffon;
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script src="./Rect.js"></script>
+    <script>
+        //충돌 조건
+        //조건1) olive의 x축 좌표 + 너비 가 blue의 x축을 넘어서고 and olive y축 좌표 + 높이 가 blue의 y축을 넘어서면 
+        //조건2) olive의 x축 좌표 + 너비 가 blue의 x축을 넘어서고 and olive y축 값이 blue의 y축+높이 보다 작거나 같아지면
+        //조건3) olive의 x축 좌표가 blue의 x축+너비 값보다 같거나 작고 and olive의 y축 + 높이가 blue의 y축 보다 커지면
+        //조건4) olive의 x축 값이 blue의 x축 + 너비 값보다 작아지고 and olive의 y축 값이 blue의 y축 + 높이 보다 작아지면
+
+        let olive, blue;
+        let flag=false;
+
+        function init(){
+            //두 개의 사각형 만들기
+            olive=new Rect(document.body, 100, 200, 100, 100, "olive");
+            blue=new Rect(document.body, 600, 200, 100, 100, "cornflowerblue");
+        }
+        
+        addEventListener("load", function(){
+            init();
+        
+            //문서 전체를 대상으로 마우스 이벤트 연결
+            document.body.addEventListener("mousemove", function(){
+                //console.log("마우스 움직이는 중");
+
+                if(true){
+                    olive.x=event.clientX;
+                    olive.y=event.clientY
+                    olive.move();
+                }
+                let result=collisionCheck(olive, blue);
+                console.log(result);
+
+                if(result){ //충돌이 나면
+                    blue.div.style.background="white";
+                }else{
+                    blue.div.style.background="cornflowerblue";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
